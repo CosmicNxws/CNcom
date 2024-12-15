@@ -60,13 +60,13 @@
   
   
   <div class="error-container">
-    <div class="error-code">500</div>
-    <div class="error-title">Houston, we have a problem.</div>
+    <div class="error-code">404 - Not Found</div>
+    <div class="error-title">Well that’s odd </div>
     <div class="error-message">
-      An unknown Internal Error has occurred and the website was unable to establish a connection with the server.
+      The page you are looking for appears to have been sucked into a black hole and could not be found.
     </div>
     <div class="error-info">
-      Please report this issue to a Staff member
+      Try Checking the URL or Head back home 
     </div>
   </div>
   

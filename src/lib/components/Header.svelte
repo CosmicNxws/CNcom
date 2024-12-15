@@ -203,17 +203,18 @@
     {#if isMobileDropdownVisible}
       <div class="mobile-dropdown">
         <a href="/"></a>
-        <a href="/news">Launches</a>
+        <a href="/launches">Launches</a>
         <a href="/technology">Advanced Tech</a>
-        <a href="/space">Astronomy</a>
-        <a href="/opinion">Aerospace</a>
-        <a href="/about">International</a>
+        <a href="/sstronomy">Astronomy</a>
+        <a href="/aerospace">Aerospace</a>
+        <a href="/international">International</a>
         <hr />
-        <a href="/contact">About CN</a>
-        <a href="/advertise">CN Store</a>
-        <a href="/careers">CN Jobs</a>
-        <a href="/privacy">Privacy & Terms</a>
-        <a href="/terms">Contact us</a>
+        <a href="/pages/about">About CN</a>
+        <a href="https://store.cosmicnxws.com">CN Store</a>
+        <a href="/pages/jobs">CN Jobs</a>
+        <a href="/pages/labs">CN Labs</a>
+        <a href="/pages/privacy">Privacy & Terms</a>
+        <a href="/pages/contact">Contact us</a>
       </div>
     {/if}
   </header>
