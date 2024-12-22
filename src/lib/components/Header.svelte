@@ -173,10 +173,11 @@
     <!-- Desktop Navigation -->
     <nav>
         <a href="/launches">Launches</a>
-        <a href="/technology">Advanced Tech</a>
         <a href="/sstronomy">Astronomy</a>
         <a href="/aerospace">Aerospace</a>
         <a href="/international">International</a>
+        <a href="/advancedtech">Tech</a>
+        <a href="/topics">All Topics</a>
   
       <!-- More Dropdown -->
       <div class="dropdown">
@@ -187,7 +188,8 @@
             <a href="https://store.cosmicnxws.com">CN Store</a>
             <a href="/pages/jobs">CN Jobs</a>
             <a href="/pages/labs">CN Labs</a>
-            <a href="/pages/privacy">Privacy & Terms</a>
+            <a href="/pages/privacy">Privacy Policy</a>
+            <a href="/pages/terms">Terms and Conditions</a>
             <a href="/pages/contact">Contact us</a>
           </div>
         {/if}
@@ -204,16 +206,18 @@
       <div class="mobile-dropdown">
         <a href="/"></a>
         <a href="/launches">Launches</a>
-        <a href="/technology">Advanced Tech</a>
         <a href="/sstronomy">Astronomy</a>
         <a href="/aerospace">Aerospace</a>
         <a href="/international">International</a>
+        <a href="/advancedtech">Tech</a>
+        <a href="/topics">All Topics</a>
         <hr />
         <a href="/pages/about">About CN</a>
         <a href="https://store.cosmicnxws.com">CN Store</a>
         <a href="/pages/jobs">CN Jobs</a>
         <a href="/pages/labs">CN Labs</a>
-        <a href="/pages/privacy">Privacy & Terms</a>
+        <a href="/pages/privacy">Privacy Policy</a>
+        <a href="/pages/terms">Terms and Conditions</a>
         <a href="/pages/contact">Contact us</a>
       </div>
     {/if}
