@@ -25,7 +25,7 @@
             <div class="authors">
                 {#if post.authors && post.authors.length > 0}
                     <div class="author-list">
-                        By&nbsp;
+                        By:&nbsp;
                         {#each post.authors as author, i}
                             <span class="author">
                                 {author.name}{i < post.authors.length - 1 ? ', ' : ''}
@@ -63,8 +63,8 @@
 }
 
 .image-container {
-    width: 100%;
-    height: 240px;
+    width: 120%;
+    height: 200px;
     overflow: hidden;
 }
 
@@ -83,13 +83,13 @@
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
-    padding: 0.6rem 1.8rem;
+    padding: 0.6rem 0.9rem;
     background: #1a1a1a;
 }
 
 .tag {
-    background: #2d2d2d;
-    color: #a8a8a8;
+    background: #7130bd;
+    color: #ffffff;
     padding: 0.3rem 0.8rem;
     border-radius: 6px;
     font-size: 0.8rem;
@@ -97,7 +97,7 @@
 }
 
 .tag:hover {
-    background: #333;
+    background: #6846ff;
     color: #fff;
 }
 
@@ -114,7 +114,7 @@
 }
 
 .excerpt {
-    color: #cccccc;
+    color: #dddddd;
     line-height: 1.7;
     margin: 1rem 0 1.5rem 0;
     display: -webkit-box;
@@ -133,7 +133,7 @@
 
 .authors {
     width: 100%;
-    color: #999;
+    color: #cecece;
     font-size: 0.9rem;
     line-height: 1.5;
 }
@@ -157,6 +157,6 @@
 
 .date {
     display: block;
-    color: #777;
+    color: #c9c9c9;
 }
 </style>

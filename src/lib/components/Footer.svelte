@@ -95,41 +95,97 @@
       color: white;
       opacity: 0.8;
     }
+
+
+
+
+
+
+/* Existing styles remain the same until the media query */
+
+/* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+  footer {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-section {
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .company-info {
+    text-align: center;
+  }
+
+  .links {
+    width: 100%;
+    justify-content: space-around;
+    gap: 1rem;
+  }
+
+  .right-section {
+    height: 200px; /* Shorter height for mobile */
+  }
+
+
+  .image-credit {
+    display: none;
+  }
+}
+
+/* For very small screens */
+@media screen and (max-width: 480px) {
+  .links {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .links div {
+    align-items: center;
+  }
+}
   </style>
   
   <footer>
-    <!-- Left Section: Black Background -->
     <div class="left-section">
-      <!-- Company Info -->
       <div class="company-info">
         <div class="logo-title">Cosmic Nxws LLC</div>
-        <div class="tagline">AD ASTRA PER LITERAS</div>
+        <div class="tagline">AD ASTRA PER SCIENTIA</div>
         <div class="copyright">© 2024 Cosmic Nxws LLC. All Rights Reserved</div>
       </div>
-  
-      <!-- Links: General and Follow Us -->
+
       <div class="links">
         <div>
           <b>General</b>
-          <a href="#">About Cosmic Nxws</a>
-          <a href="#">Advertise</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">The Team</a>
+          <a href="/pages/about" data-sveltekit-preload>About CN</a>
+          <a href="/pages/advertise" data-sveltekit-preload>Advertise</a>
+          <a href="/pages/privacy" data-sveltekit-preload>Privacy Policy</a>
+          <a href="/pages/team" data-sveltekit-preload>The Team</a>
         </div>
-  
+
         <div>
           <b>Follow us</b>
-          <a href="#">Youtube</a>
-          <a href="#">Bluesky</a>
-          <a href="#">Twitter</a>
-          <a href="#">Instagram</a>
+          <a href="https://youtube.com" target="_blank" rel="noopener">Youtube</a>
+          <a href="https://bsky.app" target="_blank" rel="noopener">Bluesky</a>
+          <a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
         </div>
       </div>
     </div>
-  
-    <!-- Right Section: Image Background -->
+
     <div class="right-section">
       <div class="image-credit">Image Credit ©SpaceX (Not affiliated)</div>
     </div>
-  </footer>
+</footer>
+
   
+
+
+
+
+

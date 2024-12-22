@@ -46,7 +46,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      height: 70px;
+      height: 55px;
       background-color: #000;
       color: #fff;
       padding: 0 1.5rem;
@@ -188,6 +188,7 @@
             <a href="https://store.cosmicnxws.com">CN Store</a>
             <a href="/pages/jobs">CN Jobs</a>
             <a href="/pages/labs">CN Labs</a>
+            <a href="/pages/advertise">Advertise</a>
             <a href="/pages/privacy">Privacy Policy</a>
             <a href="/pages/terms">Terms and Conditions</a>
             <a href="/pages/contact">Contact us</a>
@@ -216,6 +217,7 @@
         <a href="https://store.cosmicnxws.com">CN Store</a>
         <a href="/pages/jobs">CN Jobs</a>
         <a href="/pages/labs">CN Labs</a>
+        <a href="/pages/advertise">Advertise</a>
         <a href="/pages/privacy">Privacy Policy</a>
         <a href="/pages/terms">Terms and Conditions</a>
         <a href="/pages/contact">Contact us</a>
