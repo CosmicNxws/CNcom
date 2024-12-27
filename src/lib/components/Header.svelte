@@ -1,47 +1,148 @@
 <script>
-    import { onMount } from "svelte";
-    import { goto } from "$app/navigation"; // SvelteKit navigation helper
-  
-    // State for dropdown visibility
-    let isMoreDropdownVisible = false;
-    let isMobileDropdownVisible = false;
-  
-    let isMobile = false;
-  
-    // Check for screen size
-    const checkScreenSize = () => {
-      isMobile = window.innerWidth <= 768; // Adjust breakpoint if needed
-    };
-  
-    onMount(() => {
+  import { onMount } from "svelte";
+  import { goto } from "$app/navigation";
+  import { browser } from '$app/environment';
+
+  let ghostAuthUrl = browser ? window.location.origin + '/ghost/#/signin' : '';
+  let isLoggedIn = false;
+  let isMoreDropdownVisible = false;
+  let isMobileDropdownVisible = false;
+  let isAccountDropdownVisible = false;
+  let isMobile = false;
+
+  const checkScreenSize = () => {
+      isMobile = window.innerWidth <= 768;
+  };
+
+  onMount(() => {
       checkScreenSize();
       window.addEventListener("resize", checkScreenSize);
-    });
-  
-    // Toggle dropdowns
-    const toggleMoreDropdown = () => {
+      isLoggedIn = !!localStorage.getItem('ghost-admin-api-session');
+  });
+
+  const toggleMoreDropdown = () => {
       isMoreDropdownVisible = !isMoreDropdownVisible;
-    };
-  
-    const toggleMobileDropdown = () => {
+      isAccountDropdownVisible = false;
+  };
+
+  const toggleAccountDropdown = () => {
+      isAccountDropdownVisible = !isAccountDropdownVisible;
+      isMoreDropdownVisible = false;
+  };
+
+  const toggleMobileDropdown = () => {
       isMobileDropdownVisible = !isMobileDropdownVisible;
-    };
-  
-    // Navigation helper for buttons
-    const navigate = (path) => {
-      goto(path); // Navigate to the given route
-    };
-  </script>
-  
-  <style>
-    /* General Reset */
-    * {
+  };
+
+  const navigate = (path) => {
+      goto(path);
+  };
+
+  const handleSignIn = () => {
+      window.location.href = ghostAuthUrl;
+  };
+
+  const handleSignOut = () => {
+      localStorage.removeItem('ghost-admin-api-session');
+      isLoggedIn = false;
+      window.location.reload();
+  };
+</script>
+
+<header>
+  <div class="logo" on:click={() => navigate('/')}>Cosmic Nxws</div>
+
+  <nav>
+      <a href="/launches">Launches</a>
+      <a href="/aerospace">Aerospace</a>
+      <a href="/exploration">Exploration</a>
+      <a href="/newsletter">Newsletter</a>
+      <a href="/stem">STEM</a>
+      <a href="/topics">All Topics</a>
+
+      <div class="dropdown account-dropdown">
+          <button class="dropdown-button account-button" on:click={toggleAccountDropdown}>
+              {#if isLoggedIn}
+                  <span class="account-icon">👤</span>
+              {:else}
+                  Sign In
+              {/if}
+          </button>
+          {#if isAccountDropdownVisible}
+              <div class="dropdown-content">
+                  {#if isLoggedIn}
+                      <a href="/account">My Account</a>
+                      <a href="/account/settings">Settings</a>
+                      <button class="sign-out-button" on:click={handleSignOut}>Sign Out</button>
+                  {:else}
+                      <button class="sign-in-button" on:click={handleSignIn}>Sign In</button>
+                      <a href={`${ghostAuthUrl}/signup`}>Create Account</a>
+                  {/if}
+              </div>
+          {/if}
+      </div>
+
+      <div class="dropdown">
+          <button class="dropdown-button" on:click={toggleMoreDropdown}>More</button>
+          {#if isMoreDropdownVisible}
+              <div class="dropdown-content">
+                  <a href="/pages/about">About CN</a>
+                  <a href="https://store.cosmicnxws.com">CN Store</a>
+                  <a href="/pages/jobs">CN Jobs</a>
+                  <a href="/pages/labs">CN Labs</a>
+                  <a href="/pages/advertise">Advertise</a>
+                  <a href="/pages/privacy">Privacy Policy</a>
+                  <a href="/pages/terms">Terms and Conditions</a>
+                  <a href="/pages/contact">Contact us</a>
+              </div>
+          {/if}
+      </div>
+  </nav>
+
+  <div class="mobile-menu" on:click={toggleMobileDropdown}>
+      &#9776;
+  </div>
+
+  {#if isMobileDropdownVisible}
+      <div class="mobile-dropdown">
+          <a href="/launches">Launches</a>
+          <a href="/aerospace">Aerospace</a>
+          <a href="/exploration">Exploration</a>
+          <a href="/newsletter">Newsletter</a>
+          <a href="/stem">STEM</a>
+          <a href="/topics">All Topics</a>
+          <hr />
+          <div class="account-section">
+              {#if isLoggedIn}
+                  <a href="/account">My Account</a>
+                  <a href="/account/settings">Settings</a>
+                  <button class="sign-out-button" on:click={handleSignOut}>Sign Out</button>
+              {:else}
+                  <button class="sign-in-button" on:click={handleSignIn}>Sign In</button>
+                  <a href={`${ghostAuthUrl}/signup`}>Create Account</a>
+              {/if}
+          </div>
+          <hr />
+          <a href="/pages/about">About CN</a>
+          <a href="https://store.cosmicnxws.com">CN Store</a>
+          <a href="/pages/jobs">CN Jobs</a>
+          <a href="/pages/labs">CN Labs</a>
+          <a href="/pages/advertise">Advertise</a>
+          <a href="/pages/privacy">Privacy Policy</a>
+          <a href="/pages/terms">Terms and Conditions</a>
+          <a href="/pages/contact">Contact us</a>
+      </div>
+  {/if}
+</header>
+
+<style>
+  * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-  
-    header {
+  }
+
+  header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -51,23 +152,21 @@
       color: #fff;
       padding: 0 1.5rem;
       font-family: Arial, sans-serif;
-    }
-  
-    /* Logo */
-    .logo {
+  }
+
+  .logo {
       font-size: 1.5rem;
       font-weight: bold;
       cursor: pointer;
-    }
-  
-    /* Desktop Navigation */
-    nav {
+  }
+
+  nav {
       display: flex;
       align-items: center;
       gap: 1rem;
-    }
-  
-    nav a, .dropdown-button {
+  }
+
+  nav a, .dropdown-button {
       text-decoration: none;
       background: none;
       border: 1px solid transparent;
@@ -76,19 +175,32 @@
       font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.3s ease;
-    }
-  
-    nav a:hover, .dropdown-button:hover {
-      border-color: #9b59b6; /* Purple hover effect */
+  }
+
+  nav a:hover, .dropdown-button:hover {
+      border-color: #9b59b6;
       color: #9b59b6;
-    }
-  
-    /* Dropdown Styles */
-    .dropdown {
+  }
+
+  .dropdown {
       position: relative;
-    }
-  
-    .dropdown-content {
+  }
+
+  .account-dropdown {
+      margin-left: 1rem;
+  }
+
+  .account-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+  }
+
+  .account-icon {
+      font-size: 1.2rem;
+  }
+
+  .dropdown-content {
       position: absolute;
       top: 2.5rem;
       right: 0;
@@ -99,9 +211,11 @@
       min-width: 150px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       z-index: 10;
-    }
-  
-    .dropdown-content a {
+  }
+
+  .dropdown-content a, 
+  .sign-in-button, 
+  .sign-out-button {
       display: block;
       width: 100%;
       background: none;
@@ -111,28 +225,32 @@
       text-align: left;
       text-decoration: none;
       transition: background 0.3s;
-    }
-  
-    .dropdown-content a:hover {
-      background-color: #444;
-    }
-  
-    /* Mobile Menu */
-    .mobile-menu {
-      display: none; /* Hidden by default */
+      font-size: 0.9rem;
       cursor: pointer;
-    }
-  
-    .mobile-dropdown {
+  }
+
+  .dropdown-content a:hover,
+  .sign-in-button:hover,
+  .sign-out-button:hover {
+      background-color: #444;
+  }
+
+  .mobile-menu {
+      display: none;
+      cursor: pointer;
+  }
+
+  .mobile-dropdown {
       position: absolute;
-      top: 70px;
+      top: 55px;
       left: 0;
       width: 100%;
       background-color: #222;
       z-index: 10;
-    }
-  
-    .mobile-dropdown a {
+  }
+
+  .mobile-dropdown a,
+  .mobile-dropdown button {
       display: block;
       width: 100%;
       color: white;
@@ -142,86 +260,30 @@
       text-align: left;
       text-decoration: none;
       transition: background 0.3s;
-    }
-  
-    .mobile-dropdown a:hover {
+  }
+
+  .mobile-dropdown a:hover,
+  .mobile-dropdown button:hover {
       background-color: #444;
-    }
-  
-    hr {
+  }
+
+  .account-section {
+      padding: 1rem 0;
+  }
+
+  hr {
       border: none;
       border-top: 1px solid #555;
       margin: 0;
-    }
-  
-    /* Responsive */
-    @media (max-width: 768px) {
+  }
+
+  @media (max-width: 768px) {
       nav {
-        display: none; /* Hide desktop nav on mobile */
+          display: none;
       }
-  
+
       .mobile-menu {
-        display: block; /* Show mobile menu */
+          display: block;
       }
-    }
-  </style>
-  
-  <header>
-    <!-- Logo -->
-    <div class="logo" on:click={() => navigate('/')}>Cosmic Nxws</div>
-  
-    <!-- Desktop Navigation -->
-    <nav>
-        <a href="/launches">Launches</a>
-        <a href="/sstronomy">Astronomy</a>
-        <a href="/aerospace">Aerospace</a>
-        <a href="/international">International</a>
-        <a href="/advancedtech">Tech</a>
-        <a href="/topics">All Topics</a>
-  
-      <!-- More Dropdown -->
-      <div class="dropdown">
-        <button class="dropdown-button" on:click={toggleMoreDropdown}>More</button>
-        {#if isMoreDropdownVisible}
-          <div class="dropdown-content">
-            <a href="/pages/about">About CN</a>
-            <a href="https://store.cosmicnxws.com">CN Store</a>
-            <a href="/pages/jobs">CN Jobs</a>
-            <a href="/pages/labs">CN Labs</a>
-            <a href="/pages/advertise">Advertise</a>
-            <a href="/pages/privacy">Privacy Policy</a>
-            <a href="/pages/terms">Terms and Conditions</a>
-            <a href="/pages/contact">Contact us</a>
-          </div>
-        {/if}
-      </div>
-    </nav>
-  
-    <!-- Mobile Menu Icon -->
-    <div class="mobile-menu" on:click={toggleMobileDropdown}>
-      &#9776; <!-- Hamburger Icon -->
-    </div>
-  
-    <!-- Mobile Dropdown -->
-    {#if isMobileDropdownVisible}
-      <div class="mobile-dropdown">
-        <a href="/"></a>
-        <a href="/launches">Launches</a>
-        <a href="/sstronomy">Astronomy</a>
-        <a href="/aerospace">Aerospace</a>
-        <a href="/international">International</a>
-        <a href="/advancedtech">Tech</a>
-        <a href="/topics">All Topics</a>
-        <hr />
-        <a href="/pages/about">About CN</a>
-        <a href="https://store.cosmicnxws.com">CN Store</a>
-        <a href="/pages/jobs">CN Jobs</a>
-        <a href="/pages/labs">CN Labs</a>
-        <a href="/pages/advertise">Advertise</a>
-        <a href="/pages/privacy">Privacy Policy</a>
-        <a href="/pages/terms">Terms and Conditions</a>
-        <a href="/pages/contact">Contact us</a>
-      </div>
-    {/if}
-  </header>
-  
+  }
+</style>

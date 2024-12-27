@@ -10,7 +10,7 @@
 
     let projects = [
       {
-        title: "Nebulon AI Chatbot",
+        title: "Maven Chatbot ",
         description: "A Chatbot trained on verified data from the CosmicNxws website.",
         type: "Chatbot",
         image: "/projects/Nebulon.jpeg",  
@@ -36,8 +36,8 @@
         tags: ["Space", "Astronomy", "Tool"]
       },
       {
-        title: "CN Browser homepage",
-        description: "an extention that replaces your existing homepge e.g Google.com with a custom space themed one, with tools and cool space features",
+        title: "Nebulon homepage",
+        description: "A  web extention that replaces your existing homepge e.g Google.com with a custom space themed one, with tools and cool space features",
         type: "Tool",
         image: "/projects/browserhome.jpeg",  // Replace with your project image path
         author: "Sam Thibault",

@@ -13,23 +13,31 @@ export const nodes = [
 	() => import('./nodes/9'),
 	() => import('./nodes/10'),
 	() => import('./nodes/11'),
-	() => import('./nodes/12')
+	() => import('./nodes/12'),
+	() => import('./nodes/13'),
+	() => import('./nodes/14'),
+	() => import('./nodes/15'),
+	() => import('./nodes/16')
 ];
 
 export const server_loads = [];
 
 export const dictionary = {
 		"/": [~2],
-		"/Aerospace": [4],
-		"/advancedtech": [3],
+		"/aerospace": [~3],
+		"/exploration": [~4],
 		"/launches": [~5],
-		"/pages/about": [6],
-		"/pages/contact": [7],
-		"/pages/jobs": [8],
-		"/pages/labs": [9],
-		"/pages/privacy": [10],
-		"/pages/terms": [11],
-		"/[slug]": [~12]
+		"/newsletter": [~6],
+		"/pages/about": [7],
+		"/pages/advertise": [8],
+		"/pages/contact": [9],
+		"/pages/jobs": [10],
+		"/pages/labs": [11],
+		"/pages/privacy": [12],
+		"/pages/terms": [13],
+		"/stem": [~14],
+		"/topics": [15],
+		"/[slug]": [~16]
 	};
 
 export const hooks = {
