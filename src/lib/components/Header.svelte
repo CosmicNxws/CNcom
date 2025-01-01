@@ -106,7 +106,7 @@
       <div class="mobile-dropdown">
           <a href="/launches">Launches</a>
           <a href="/aerospace">Aerospace</a>
-          <a href="/exploration">Exploration</a>``
+          <a href="/exploration">Exploration</a>
           <a href="/stem">STEM</a>
           <a href="/topics">All Topics</a>
           <hr />

@@ -154,9 +154,9 @@
   <footer>
     <div class="left-section">
       <div class="company-info">
-        <div class="logo-title">Cosmic Nxws</div>
+        <div class="logo-title">Cosmic Nxws Beta 1.0.0</div>
         <div class="tagline">AD ASTRA PER SCIENTIA</div>
-        <div class="copyright">© 2024 Cosmic Nxws LLC. </div>
+        <div class="copyright">© 2025 Cosmic Nxws LLC. </div>
       </div>
 
       <div class="links">
