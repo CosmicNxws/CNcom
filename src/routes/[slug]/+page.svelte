@@ -2,11 +2,7 @@
     import Header from '$lib/components/Header.svelte';
     import Footer from '$lib/components/Footer.svelte';
 
-    /** @type {import('./$types').PageData} */
     export let data;
-
-    // Add this to see the data structure
-    console.log('Post Data:', data.post);
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -30,6 +26,7 @@
                     <img src={data.post.feature_image} alt={data.post.title} />
                 </div>
             {/if}
+
             <div class="post-header">
                 <h1>{data.post.title}</h1>
                 
@@ -51,13 +48,12 @@
                             </div>
                         {/if}
                     </div>
-                    
 
                     <time>{formatDate(data.post.published_at)}</time>
 
                     {#if data.post.primary_tag}
                         <div class="tags">
-                            <span class="tag">{data.post.primary_tag.name}</span>
+                            <span class="tag primary-tag">{data.post.primary_tag.name}</span>
                             {#if data.post.tags}
                                 {#each data.post.tags.slice(1) as tag}
                                     <span class="tag">{tag.name}</span>
@@ -77,25 +73,47 @@
 
 <Footer />
 
-
 <style>
+    main {
+        background: #121212;
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+
     .post {
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
         padding: 2rem;
-        background: var(--card-bg);
+        background: #1a1a1a;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
     .feature-image-container {
         margin: -2rem -2rem 2rem -2rem;
+        border-radius: 12px 12px 0 0;
+        overflow: hidden;
+        position: relative;
     }
 
-    img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        max-height: 500px;
-    }
+    .feature-image-container img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    background: #0f0f0f;
+    transition: transform 0.3s ease;
+}
+
+   .content :global(img) {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 2.5rem auto;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
 
     .post-header {
         text-align: center;
@@ -103,113 +121,142 @@
     }
 
     h1 {
-        font-size: 2.5rem;
-        margin: 1rem 0;
+        font-size: 3rem;
+        margin: 1.5rem 0;
         line-height: 1.2;
+        background: linear-gradient(45deg, #fff, #b892ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .meta {
-        color: #666;
-        font-size: 0.9rem;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
-        margin-top: 1.5rem;
-    }
-
-    .authors {
-        margin-bottom: 0.5rem;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        color: #a0aec0;
     }
 
     .author-list {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
     .author {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.8rem;
+        transition: transform 0.2s ease;
+    }
+
+    .author:hover {
+        transform: translateY(-2px);
     }
 
     .author-image {
-        width: 40px;
-        height: 40px;
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
         object-fit: cover;
+        border: 2px solid #7130bd;
     }
 
     .author-name {
         font-weight: 500;
-        color: #2c3e50;
+        color: #b892ff;
+    }
+
+    time {
+        font-size: 0.9rem;
+        color: #718096;
     }
 
     .tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: 0.8rem;
         justify-content: center;
-        margin-top: 0.5rem;
     }
 
     .tag {
-        background: #363636;
-        padding: 0.3rem 0.8rem;
-        border-radius: 15px;
-        font-size: 0.8rem;
-        color: var(--text-color);
+        background: #232323;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: #b892ff;
+        transition: all 0.2s ease;
     }
 
-    time {
-        color: #718096;
+    .tag:hover {
+        background: #2d2d2d;
+        transform: translateY(-2px);
+    }
+
+    .primary-tag {
+        background: #7130bd;
+        color: white;
+    }
+
+    .content {
+        margin-top: 3rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
     }
 
     .content :global(p) {
-        line-height: 1.8;
-        margin-bottom: 1.5rem;
-        font-size: 1.1rem;
-        color: var(--text-color);
+        margin-bottom: 1.8rem;
+        color: #e0e0e0;
     }
 
     .content :global(h2) {
-        margin: 2rem 0 1rem;
-        font-size: 1.8rem;
+        margin: 2.5rem 0 1.5rem;
+        font-size: 2rem;
+        color: #ffffff;
     }
 
     .content :global(img) {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        margin: 2rem 0;
+        width: 100%;
+        border-radius: 12px;
+        margin: 2.5rem 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .content :global(blockquote) {
-        border-left: 4px solid #3273dc;
-        margin: 1.5rem 0;
-        padding-left: 1rem;
-        color: #4a5568;
+        border-left: 4px solid #7130bd;
+        margin: 2rem 0;
+        padding: 1rem 2rem;
+        background: #232323;
+        border-radius: 0 12px 12px 0;
+        color: #b8b8b8;
     }
 
     .content :global(pre) {
-        background: #f8f9fa;
-        padding: 1rem;
-        border-radius: 4px;
+        background: #232323;
+        padding: 1.5rem;
+        border-radius: 8px;
         overflow-x: auto;
+        margin: 2rem 0;
     }
 
     .content :global(a) {
-        color: #3273dc;
+        color: #b892ff;
         text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: all 0.2s ease;
     }
 
     .content :global(a:hover) {
-        text-decoration: underline;
+        border-bottom-color: #b892ff;
     }
 
     @media (max-width: 768px) {
+        main {
+            padding: 1rem;
+        }
+
         .post {
             padding: 1rem;
         }
@@ -222,9 +269,8 @@
             font-size: 2rem;
         }
 
-        .author-list {
-            flex-direction: column;
-            align-items: center;
+        .content :global(h2) {
+            font-size: 1.6rem;
         }
     }
 </style>
