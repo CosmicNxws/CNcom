@@ -1,33 +1,33 @@
-
 <script>
     import BlogPost from '$lib/components/BlogPost.svelte';
     import Header from '$lib/components/Header.svelte';
     import Footer from '$lib/components/Footer.svelte';
+    import { currentTopic } from '$lib/stores/topicStore';
 
     /** @type {import('./$types').PageData} */
     export let data;
 
-    // Define how many posts to display initially and per "load more"
     const POSTS_PER_LOAD = 20;
     let visiblePosts = POSTS_PER_LOAD;
 
-    // Function to load more posts
+    $: filteredPosts = $currentTopic === 'all' 
+        ? data.posts 
+        : data.posts.filter(post => post.tags?.some(tag => tag.slug === $currentTopic));
+
     function loadMore() {
         visiblePosts += POSTS_PER_LOAD;
     }
-
-    console.log('Page Data:', data);
 </script>
 
 <Header />
 
 <main>
     <div class="posts-grid">
-        {#each data.posts.slice(0, visiblePosts) as post}
+        {#each filteredPosts.slice(0, visiblePosts) as post}
             <BlogPost {post} />
         {/each}
     </div>
-    {#if visiblePosts < data.posts.length}
+    {#if visiblePosts < filteredPosts.length}
         <button class="load-more" on:click={loadMore}>Load More</button>
     {/if}
 </main>
@@ -58,6 +58,7 @@
         background-color: #005fa3;
     }
 </style>
+
 
 
 

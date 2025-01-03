@@ -1,47 +1,53 @@
 <script>
+    import { currentTopic } from '../stores/topicStore';
     export let post;
+
+    $: visible = $currentTopic === 'all' || 
+        post.tags?.some(tag => tag.slug === $currentTopic);
 </script>
 
-<a href="/{post.slug}" class="post-card">
-    <div class="image-container">
-        {#if post.feature_image}
-            <img src={post.feature_image} alt={post.title} />
-        {/if}
-    </div>
-
-    {#if post.tags && post.tags.length > 0}
-        <div class="tags">
-            {#each post.tags as tag}
-                <span class="tag">{tag.name}</span>
-            {/each}
+{#if visible}
+    <a href="/{post.slug}" class="post-card">
+        <div class="image-container">
+            {#if post.feature_image}
+                <img src={post.feature_image} alt={post.title} />
+            {/if}
         </div>
-    {/if}
 
-    <div class="content">
-        <h2>{post.title}</h2>
-        <p class="excerpt">{post.excerpt}</p>
+        {#if post.tags && post.tags.length > 0}
+            <div class="tags">
+                {#each post.tags as tag}
+                    <span class="tag">{tag.name}</span>
+                {/each}
+            </div>
+        {/if}
 
-        <div class="meta">
-            <div class="authors">
-                {#if post.authors && post.authors.length > 0}
-                    <div class="author-list">
-                        By:&nbsp;
-                        {#each post.authors as author, i}
-                            <span class="author">
-                                {author.name}{i < post.authors.length - 1 ? ', ' : ''}
-                            </span>
-                        {/each}
-                    </div>
-                {/if}
-                <span class="date">{new Date(post.published_at).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                })}</span>
+        <div class="content">
+            <h2>{post.title}</h2>
+            <p class="excerpt">{post.excerpt}</p>
+
+            <div class="meta">
+                <div class="authors">
+                    {#if post.authors && post.authors.length > 0}
+                        <div class="author-list">
+                            By:&nbsp;
+                            {#each post.authors as author, i}
+                                <span class="author">
+                                    {author.name}{i < post.authors.length - 1 ? ', ' : ''}
+                                </span>
+                            {/each}
+                        </div>
+                    {/if}
+                    <span class="date">{new Date(post.published_at).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}</span>
+                </div>
             </div>
         </div>
-    </div>
-</a>
+    </a>
+{/if}
 
 <style>
 .post-card {

@@ -23,3 +23,13 @@ export async function getPostsByTag(tag) {
     const data = await response.json();
     return data.posts;
 }
+
+/**
+ * Fetch all public tags from Ghost API
+ * @returns {Promise<Array>} - An array of tags
+ */
+export async function getTopics() {
+    const response = await fetch(`${API_URL}/tags/?key=${API_KEY}&limit=all&filter=visibility:public`);
+    const data = await response.json();
+    return data.tags;
+}

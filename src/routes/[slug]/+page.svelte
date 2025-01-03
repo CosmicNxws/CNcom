@@ -16,6 +16,11 @@
     }
 </script>
 
+<svelte:head>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</svelte:head>
+
+
 <Header />
 
 <main>
@@ -86,7 +91,7 @@
         padding: 2rem;
         background: #1a1a1a;
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 20px rgba(177, 64, 211, 0.473);
     }
 
     .feature-image-container {
@@ -97,23 +102,53 @@
     }
 
     .feature-image-container img {
-    width: 100%;
-    max-height: 500px;
-    object-fit: contain;
-    background: #0f0f0f;
-    transition: transform 0.3s ease;
-}
+        width: 100%;
+        max-height: 500px;
+        object-fit: contain;
+        background: #0f0f0f;
+        transition: transform 0.3s ease;
+    }
 
-   .content :global(img) {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    margin: 2.5rem auto;
-    display: block;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
+    .content :global(img) {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin: 2.5rem auto;
+        display: block;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
 
+    /* Tweet Styling */
+    .content :global(.twitter-tweet-rendered) {
+        display: flex !important;
+        justify-content: center !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+    }
+
+    .content :global(p:has(.twitter-tweet-rendered)) {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* YouTube Embed Styling */
+    .content :global(.kg-embed-card:has(iframe[src*="youtube"])) {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        margin: 2.5rem 0;
+    }
+
+    .content :global(.kg-embed-card:has(iframe[src*="youtube"]) iframe) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(216, 87, 233, 0.226);
+    }
 
     .post-header {
         text-align: center;
@@ -217,13 +252,6 @@
         color: #ffffff;
     }
 
-    .content :global(img) {
-        width: 100%;
-        border-radius: 12px;
-        margin: 2.5rem 0;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
     .content :global(blockquote) {
         border-left: 4px solid #7130bd;
         margin: 2rem 0;
@@ -274,3 +302,4 @@
         }
     }
 </style>
+
