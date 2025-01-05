@@ -88,9 +88,17 @@
 </script>
 
 
-
 <header>
-    <div class="logo" on:click={() => navigate('/')}>Cosmic Nxws</div>
+    <button 
+    class="logo" 
+    on:click={() => navigate('/')} 
+    on:keydown={(e) => e.key === 'Enter' && navigate('/')}
+    role="link"
+    aria-label="Home"
+    style="background: none; border: none; padding: 0; cursor: pointer;">
+    Cosmic Nxws
+</button>
+
 
     <nav>
         <a href="/launches">Launches</a>
@@ -99,78 +107,104 @@
         <a href="/stem">STEM</a>
         
         <div class="dropdown topics-dropdown">
-            <button class="dropdown-button" on:click={toggleTopicsDropdown}>
+            <button 
+                class="dropdown-button" 
+                on:click={toggleTopicsDropdown}
+                on:keydown={(e) => e.key === 'Enter' && toggleTopicsDropdown()}
+                aria-expanded={isTopicsDropdownVisible}
+                aria-haspopup="true">
                 All Topics
             </button>
             {#if isTopicsDropdownVisible}
-            <div class="dropdown-content">
-                <button on:click={() => handleTopicSelect('all')}>All Topics</button>
+            <div class="dropdown-content" role="menu">
+                <button role="menuitem" on:click={() => handleTopicSelect('all')}>All Topics</button>
                 {#each topics as topic}
-                    <button on:click={() => handleTopicSelect(topic.slug)}>{topic.name}</button>
+                    <button role="menuitem" on:click={() => handleTopicSelect(topic.slug)}>{topic.name}</button>
                 {/each}
             </div>
             {/if}
         </div>
 
         <div class="dropdown account-dropdown">
-            <button class="dropdown-button account-button" on:click={toggleAccountDropdown}>
+            <button 
+                class="dropdown-button account-button" 
+                on:click={toggleAccountDropdown}
+                on:keydown={(e) => e.key === 'Enter' && toggleAccountDropdown()}
+                aria-expanded={isAccountDropdownVisible}
+                aria-haspopup="true">
                 {#if isLoggedIn}
-                    <span class="account-icon">👤</span>
+                    <span class="account-icon" aria-hidden="true">👤</span>
                 {:else}
                     Sign In
                 {/if}
             </button>
             {#if isAccountDropdownVisible}
-                <div class="dropdown-content">
+                <div class="dropdown-content" role="menu">
                     {#if isLoggedIn}
-                        <a href="/account">My Account</a>
-                        <a href="/account/settings">Settings</a>
-                        <button class="sign-out-button" on:click={handleSignOut}>Sign Out</button>
+                        <a href="/account" role="menuitem">My Account</a>
+                        <a href="/account/settings" role="menuitem">Settings</a>
+                        <button class="sign-out-button" role="menuitem" on:click={handleSignOut}>Sign Out</button>
                     {:else}
-                        <button class="sign-in-button" on:click={handleSignIn}>Sign In</button>
-                        <a href={`${ghostAuthUrl}/signup`}>Create Account</a>
+                        <button class="sign-in-button" role="menuitem" on:click={handleSignIn}>Sign In</button>
+                        <a href={`${ghostAuthUrl}/signup`} role="menuitem">Create Account</a>
                     {/if}
                 </div>
             {/if}
         </div>
 
         <div class="dropdown">
-            <button class="dropdown-button" on:click={toggleMoreDropdown}>More</button>
+            <button 
+                class="dropdown-button" 
+                on:click={toggleMoreDropdown}
+                on:keydown={(e) => e.key === 'Enter' && toggleMoreDropdown()}
+                aria-expanded={isMoreDropdownVisible}
+                aria-haspopup="true">
+                More
+            </button>
             {#if isMoreDropdownVisible}
-                <div class="dropdown-content">
-                    <a href="/pages/about">About CN</a>
-                    <a href="https://store.cosmicnxws.com">CN Store</a>
-                    <a href="/pages/jobs">CN Jobs</a>
-                    <a href="/pages/labs">CN Labs</a>
-                    <a href="/pages/advertise">Advertise</a>
-                    <a href="/pages/privacy">Privacy Policy</a>
-                    <a href="/pages/terms">Terms and Conditions</a>
-                    <a href="/pages/contact">Contact us</a>
+                <div class="dropdown-content" role="menu">
+                    <a href="/pages/about" role="menuitem">About CN</a>
+                    <a href="https://store.cosmicnxws.com" role="menuitem">CN Store</a>
+                    <a href="/pages/jobs" role="menuitem">CN Jobs</a>
+                    <a href="/pages/labs" role="menuitem">CN Labs</a>
+                    <a href="/pages/advertise" role="menuitem">Advertise</a>
+                    <a href="/pages/privacy" role="menuitem">Privacy Policy</a>
+                    <a href="/pages/terms" role="menuitem">Terms and Conditions</a>
+                    <a href="/pages/contact" role="menuitem">Contact us</a>
                 </div>
             {/if}
         </div>
     </nav>
 
-    <div class="mobile-menu" on:click={toggleMobileDropdown}>
+    <button 
+        class="mobile-menu" 
+        on:click={toggleMobileDropdown}
+        on:keydown={(e) => e.key === 'Enter' && toggleMobileDropdown()}
+        aria-label="Toggle mobile menu"
+        aria-expanded={isMobileDropdownVisible}>
         &#9776;
-    </div>
+    </button>
 
     {#if isMobileDropdownVisible}
-    <div class="mobile-dropdown">
-        <a href="/launches">Launches</a>
-        <a href="/aerospace">Aerospace</a>
-        <a href="/exploration">Exploration</a>
-        <a href="/stem">STEM</a>
+    <div class="mobile-dropdown" role="menu">
+        <a href="/launches" role="menuitem">Launches</a>
+        <a href="/aerospace" role="menuitem">Aerospace</a>
+        <a href="/exploration" role="menuitem">Exploration</a>
+        <a href="/stem" role="menuitem">STEM</a>
         
-        <button class="mobile-topics-toggle" on:click={() => isTopicsVisible = !isTopicsVisible}>
+        <button 
+            class="mobile-topics-toggle" 
+            on:click={toggleMobileTopics}
+            on:keydown={(e) => e.key === 'Enter' && toggleMobileTopics(e)}
+            aria-expanded={isTopicsVisible}>
             All Topics {isTopicsVisible ? '▼' : '▶'}
         </button>
         
         {#if isTopicsVisible}
-            <div class="mobile-topics">
-                <button on:click={() => handleTopicSelect('all')}>All Topics</button>
+            <div class="mobile-topics" role="menu">
+                <button role="menuitem" on:click={() => handleTopicSelect('all')}>All Topics</button>
                 {#each topics as topic}
-                    <button on:click={() => handleTopicSelect(topic.slug)}>{topic.name}</button>
+                    <button role="menuitem" on:click={() => handleTopicSelect(topic.slug)}>{topic.name}</button>
                 {/each}
             </div>
         {/if}
@@ -178,32 +212,36 @@
         <hr />
         <div class="account-section">
             {#if isLoggedIn}
-                <a href="/account">My Account</a>
-                <a href="/account/settings">Settings</a>
-                <button class="sign-out-button" on:click={handleSignOut}>Sign Out</button>
+                <a href="/account" role="menuitem">My Account</a>
+                <a href="/account/settings" role="menuitem">Settings</a>
+                <button class="sign-out-button" role="menuitem" on:click={handleSignOut}>Sign Out</button>
             {:else}
-                <button class="sign-in-button" on:click={handleSignIn}>Sign In</button>
-                <a href={`${ghostAuthUrl}/signup`}>Create Account</a>
+                <button class="sign-in-button" role="menuitem" on:click={handleSignIn}>Sign In</button>
+                <a href={`${ghostAuthUrl}/signup`} role="menuitem">Create Account</a>
             {/if}
         </div>
         <hr />
-        <a href="/pages/about">About CN</a>
-        <a href="https://store.cosmicnxws.com">CN Store</a>
-        <a href="/pages/jobs">CN Jobs</a>
-        <a href="/pages/labs">CN Labs</a>
-        <a href="/pages/advertise">Advertise</a>
-        <a href="/pages/privacy">Privacy Policy</a>
-        <a href="/pages/terms">Terms and Conditions</a>
-        <a href="/pages/contact">Contact us</a>
+        <a href="/pages/about" role="menuitem">About CN</a>
+        <a href="https://store.cosmicnxws.com" role="menuitem">CN Store</a>
+        <a href="/pages/jobs" role="menuitem">CN Jobs</a>
+        <a href="/pages/labs" role="menuitem">CN Labs</a>
+        <a href="/pages/advertise" role="menuitem">Advertise</a>
+        <a href="/pages/privacy" role="menuitem">Privacy Policy</a>
+        <a href="/pages/terms" role="menuitem">Terms and Conditions</a>
+        <a href="/pages/contact" role="menuitem">Contact us</a>
     </div>
 {/if}
-
 </header>
 
 {#if showBetaPopup}
-    <div id="beta-popup" class="beta-popup" on:click={() => (showBetaPopup = false)}>
-        Cosmicnxws.com is in Beta and may be buggy <span class="close-popup">×</span>
-    </div>
+    <button 
+        id="beta-popup" 
+        class="beta-popup" 
+        on:click={() => (showBetaPopup = false)}
+        on:keydown={(e) => e.key === 'Enter' && (showBetaPopup = false)}
+        role="alert">
+        Cosmicnxws.com is in Beta and may be buggy <span class="close-popup" aria-hidden="true">×</span>
+    </button>
 {/if}
 
 <style>
@@ -212,6 +250,17 @@
         padding: 0;
         box-sizing: border-box;
     }
+
+    .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.logo:hover {
+    color: #b892ff;
+}
+
 
     header {
         display: flex;
