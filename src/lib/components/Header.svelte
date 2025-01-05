@@ -28,14 +28,15 @@
     });
 
     const handleTopicSelect = (topic) => {
-        $currentTopic = topic;
-        if (window.location.pathname !== '/') {
-            navigate('/');
-        }
-        isTopicsDropdownVisible = false;
-        isMobileDropdownVisible = false;
-        isTopicsVisible = false;
-    };
+    $currentTopic = topic;
+    if (window.location.pathname !== '/') {
+        navigate('/');
+    }
+    isTopicsDropdownVisible = false;
+    isMobileDropdownVisible = false;
+    isTopicsVisible = false;
+};
+
 
     const toggleMoreDropdown = () => {
         isMoreDropdownVisible = !isMoreDropdownVisible;
@@ -91,13 +92,17 @@
 <header>
     <button 
     class="logo" 
-    on:click={() => navigate('/')} 
+    on:click={() => {
+        $currentTopic = 'all';
+        navigate('/');
+    }} 
     on:keydown={(e) => e.key === 'Enter' && navigate('/')}
     role="link"
     aria-label="Home"
     style="background: none; border: none; padding: 0; cursor: pointer;">
     Cosmic Nxws
 </button>
+
 
 
     <nav>

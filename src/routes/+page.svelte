@@ -2,7 +2,10 @@
     import BlogPost from '$lib/components/BlogPost.svelte';
     import Header from '$lib/components/Header.svelte';
     import Footer from '$lib/components/Footer.svelte';
-    import { currentTopic } from '$lib/stores/topicstore';
+    import { currentTopic } from '$lib/stores/topicStore';
+
+
+ 
 
     /** @type {import('./$types').PageData} */
     export let data;
@@ -17,11 +20,18 @@
     function loadMore() {
         visiblePosts += POSTS_PER_LOAD;
     }
+
+
+
+
 </script>
+
+
 
 <Header />
 
 <main>
+    <meta name="google-adsense-account" content="ca-pub-1753330877601837">
     <div class="posts-grid">
         {#each filteredPosts.slice(0, visiblePosts) as post}
             <BlogPost {post} />

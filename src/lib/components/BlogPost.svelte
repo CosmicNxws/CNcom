@@ -1,55 +1,74 @@
 <script>
     import { currentTopic } from '../stores/topicStore';
+    
     export let post;
-
-    $: visible = $currentTopic === 'all' || 
-        post.tags?.some(tag => tag.slug === $currentTopic);
 </script>
-
-{#if visible}
-    <a href="/{post.slug}" class="post-card">
-        <div class="image-container">
-            {#if post.feature_image}
-                <img src={post.feature_image} alt={post.title} />
-            {/if}
-        </div>
-
-        {#if post.tags && post.tags.length > 0}
-            <div class="tags">
-                {#each post.tags as tag}
-                    <span class="tag">{tag.name}</span>
-                {/each}
-            </div>
+<meta name="google-adsense-account" content="ca-pub-1753330877601837">
+<a href="/{post.slug}" class="post-card">
+    <div class="image-container">
+        {#if post.feature_image}
+            <img src={post.feature_image} alt={post.title} />
         {/if}
+    </div>
 
-        <div class="content">
-            <h2>{post.title}</h2>
-            <p class="excerpt">{post.excerpt}</p>
+    {#if post.tags && post.tags.length > 0}
+        <div class="tags">
+            {#each post.tags as tag}
+                <span class="tag">{tag.name}</span>
+            {/each}
+        </div>
+    {/if}
 
-            <div class="meta">
-                <div class="authors">
-                    {#if post.authors && post.authors.length > 0}
-                        <div class="author-list">
-                            By:&nbsp;
-                            {#each post.authors as author, i}
-                                <span class="author">
-                                    {author.name}{i < post.authors.length - 1 ? ', ' : ''}
-                                </span>
-                            {/each}
-                        </div>
-                    {/if}
-                    <span class="date">{new Date(post.published_at).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })}</span>
-                </div>
+    <div class="content">
+        <h2>{post.title}</h2>
+        <p class="excerpt">{post.excerpt}</p>
+
+        <div class="meta">
+            <div class="authors">
+                {#if post.authors && post.authors.length > 0}
+                    <div class="author-list">
+                        By:&nbsp;
+                        {#each post.authors as author, i}
+                            <span class="author">
+                                {author.name}{i < post.authors.length - 1 ? ', ' : ''}
+                            </span>
+                        {/each}
+                    </div>
+                {/if}
+                <span class="date">{new Date(post.published_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                })}</span>
             </div>
         </div>
-    </a>
-{/if}
+    </div>
+</a>
 
 <style>
+.posts-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.load-more {
+    display: block;
+    margin: 2rem auto;
+    padding: 0.8rem 2rem;
+    background: #7130bd;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.load-more:hover {
+    background: #6846ff;
+}
+
 .post-card {
     background: #1a1a1a;
     border-radius: 12px;

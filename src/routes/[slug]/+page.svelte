@@ -24,6 +24,7 @@
 <Header />
 
 <main>
+    <meta name="google-adsense-account" content="ca-pub-1753330877601837">
     {#if data.post}
         <article class="post">
             {#if data.post.feature_image}
