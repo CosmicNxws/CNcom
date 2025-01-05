@@ -1,9 +1,8 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, createEventDispatcher } from "svelte";
     import { goto } from "$app/navigation";
     import { browser } from '$app/environment';
     import { getTopics } from "$lib/api";
-    import { currentTopic } from '$lib/stores/topicstore.js';
 
     let topics = [];
     let ghostAuthUrl = browser ? window.location.origin + '/ghost/#/signin' : '';
@@ -15,6 +14,8 @@
     let isTopicsVisible = false;
     let isMobile = false;
     let showBetaPopup = true;
+
+    const dispatch = createEventDispatcher();
 
     const checkScreenSize = () => {
         isMobile = window.innerWidth <= 768;
@@ -28,15 +29,14 @@
     });
 
     const handleTopicSelect = (topic) => {
-    $currentTopic = topic;
-    if (window.location.pathname !== '/') {
-        navigate('/');
-    }
-    isTopicsDropdownVisible = false;
-    isMobileDropdownVisible = false;
-    isTopicsVisible = false;
-};
-
+        dispatch('topicSelect', topic);
+        if (window.location.pathname !== '/') {
+            navigate('/');
+        }
+        isTopicsDropdownVisible = false;
+        isMobileDropdownVisible = false;
+        isTopicsVisible = false;
+    };
 
     const toggleMoreDropdown = () => {
         isMoreDropdownVisible = !isMoreDropdownVisible;
@@ -69,9 +69,6 @@
     };
 
     const navigate = (path) => {
-        if (path === '/') {
-            $currentTopic = 'all';
-        }
         goto(path);
         isTopicsDropdownVisible = false;
         isMobileDropdownVisible = false;
@@ -88,20 +85,17 @@
     };
 </script>
 
-
 <header>
     <button 
-    class="logo" 
-    on:click={() => {
-        $currentTopic = 'all';
-        navigate('/');
-    }} 
-    on:keydown={(e) => e.key === 'Enter' && navigate('/')}
-    role="link"
-    aria-label="Home"
-    style="background: none; border: none; padding: 0; cursor: pointer;">
-    Cosmic Nxws
-</button>
+        class="logo" 
+        on:click={() => navigate('/')}
+        on:keydown={(e) => e.key === 'Enter' && navigate('/')}
+        role="link"
+        aria-label="Home"
+        style="background: none; border: none; padding: 0; cursor: pointer;">
+        Cosmic Nxws
+    </button>
+
 
 
 

@@ -2,33 +2,27 @@
     import BlogPost from '$lib/components/BlogPost.svelte';
     import Header from '$lib/components/Header.svelte';
     import Footer from '$lib/components/Footer.svelte';
-    import { currentTopic } from '$lib/stores/topicstore.js';
-
-
- 
 
     /** @type {import('./$types').PageData} */
     export let data;
 
     const POSTS_PER_LOAD = 20;
     let visiblePosts = POSTS_PER_LOAD;
+    let selectedTopic = 'all';
 
-    $: filteredPosts = $currentTopic === 'all' 
+    $: filteredPosts = selectedTopic === 'all' 
         ? data.posts 
-        : data.posts.filter(post => post.tags?.some(tag => tag.slug === $currentTopic));
+        : data.posts.filter(post => post.tags?.some(tag => tag.slug === selectedTopic));
 
     function loadMore() {
         visiblePosts += POSTS_PER_LOAD;
     }
-
-
-
-
 </script>
 
-
-
-<Header />
+<Header on:topicSelect={(e) => {
+    selectedTopic = e.detail;
+    visiblePosts = POSTS_PER_LOAD;
+}} />
 
 <main>
     <meta name="google-adsense-account" content="ca-pub-1753330877601837">
@@ -43,6 +37,8 @@
 </main>
 
 <Footer />
+
+
 
 <style>
     .posts-grid {
@@ -68,9 +64,6 @@
         background-color: #005fa3;
     }
 </style>
-
-
-
 
 
 
