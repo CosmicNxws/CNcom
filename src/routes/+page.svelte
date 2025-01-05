@@ -2,7 +2,7 @@
     import BlogPost from '$lib/components/BlogPost.svelte';
     import Header from '$lib/components/Header.svelte';
     import Footer from '$lib/components/Footer.svelte';
-    import { currentTopic } from '$lib/stores/topicstore';
+    import { currentTopic } from '$lib/stores/topicstore.js';
 
 
  

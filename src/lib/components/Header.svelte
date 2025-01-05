@@ -3,7 +3,7 @@
     import { goto } from "$app/navigation";
     import { browser } from '$app/environment';
     import { getTopics } from "$lib/api";
-    import { currentTopic } from '$lib/stores/topicstore';
+    import { currentTopic } from '$lib/stores/topicstore.js';
 
     let topics = [];
     let ghostAuthUrl = browser ? window.location.origin + '/ghost/#/signin' : '';

@@ -1,5 +1,5 @@
 <script>
-    import { currentTopic } from '$lib/stores/topicstore';
+    import { currentTopic } from '$lib/stores/topicstore.js';
 
     export let post;
 </script>
