@@ -1,6 +1,6 @@
 <script>
-    import { currentTopic } from '../stores/topicStore';
-    
+    import { currentTopic } from '$lib/stores/topicstore';
+
     export let post;
 </script>
 <meta name="google-adsense-account" content="ca-pub-1753330877601837">
