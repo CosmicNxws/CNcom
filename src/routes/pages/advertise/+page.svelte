@@ -50,29 +50,30 @@
                 </ul>
                 <button>Get Started</button>
             </div>
-
-           
         </div>
     </section>
 
     <section class="contact">
         <h2>Ready to Get Started?</h2>
-        <p>Fill out the form below and we'll get back to you within 24 hours</p>
-        <form>
+        <p>Fill out the form below, and we'll get back to you within 24 hours!</p>
+        <form
+            action="https://docs.google.com/forms/d/e/1FAIpQLSeh36nqJmo0y2H0c4TOYwlxN1zwE59tFd6nZNgKGg0PH4SkIg/viewform"
+            method="POST"
+            target="_blank"
+        >
             <div class="form-group">
-                <input type="text" placeholder="Company Name" required />
-                <input type="email" placeholder="Email Address" required />
+                <input type="text" name="entry.123456" placeholder="Company Name" required />
+                <input type="email" name="entry.789012" placeholder="Email Address" required />
             </div>
             <div class="form-group">
-                <select required>
+                <select name="entry.345678" required>
                     <option value="">Select Package</option>
-                    <option value="standard">Standard</option>
-                    <option value="premium">Premium</option>
-                    <option value="enterprise">Enterprise</option>
+                    <option value="One week">One week</option>
+                    <option value="3 weeks">3 weeks</option>
                 </select>
-                <input type="text" placeholder="Budget Range" />
+                <input type="text" name="entry.901234" placeholder="Budget Range" />
             </div>
-            <textarea placeholder="Tell us about your goals" rows="4"></textarea>
+            <textarea name="entry.567890" placeholder="Tell us about your goals" rows="4"></textarea>
             <button type="submit">Submit Request</button>
         </form>
     </section>

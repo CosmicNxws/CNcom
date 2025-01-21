@@ -1,3 +1,4 @@
+
 <script>
     import { onMount, createEventDispatcher } from "svelte";
     import { goto } from "$app/navigation";
@@ -7,13 +8,14 @@
     let topics = [];
     let ghostAuthUrl = browser ? window.location.origin + '/ghost/#/signin' : '';
     let isLoggedIn = false;
+    let user = null;
     let isMoreDropdownVisible = false;
     let isMobileDropdownVisible = false;
     let isAccountDropdownVisible = false;
     let isTopicsDropdownVisible = false;
     let isTopicsVisible = false;
     let isMobile = false;
-    let showBetaPopup = true;
+    let showPopup = true;
 
     const dispatch = createEventDispatcher();
 
@@ -25,6 +27,9 @@
         checkScreenSize();
         window.addEventListener("resize", checkScreenSize);
         isLoggedIn = !!localStorage.getItem('ghost-admin-api-session');
+        if (isLoggedIn) {
+            user = JSON.parse(localStorage.getItem('ghost-user'));
+        }
         topics = await getTopics();
     });
 
@@ -80,8 +85,20 @@
 
     const handleSignOut = () => {
         localStorage.removeItem('ghost-admin-api-session');
+        localStorage.removeItem('ghost-user');
         isLoggedIn = false;
+        user = null;
         window.location.reload();
+    };
+
+    const getCurrentUser = async () => {
+        const response = await fetch(`${ghostAuthUrl}/me`);
+        const data = await response.json();
+        if (data.user) {
+            user = data.user;
+            localStorage.setItem('ghost-user', JSON.stringify(user));
+            isLoggedIn = true;
+        }
     };
 </script>
 
@@ -96,15 +113,12 @@
         Cosmic Nxws
     </button>
 
-
-
-
     <nav>
         <a href="/launches">Launches</a>
         <a href="/aerospace">Aerospace</a>
         <a href="/exploration">Exploration</a>
         <a href="/stem">STEM</a>
-        
+
         <div class="dropdown topics-dropdown">
             <button 
                 class="dropdown-button" 
@@ -132,7 +146,7 @@
                 aria-expanded={isAccountDropdownVisible}
                 aria-haspopup="true">
                 {#if isLoggedIn}
-                    <span class="account-icon" aria-hidden="true">👤</span>
+                    <span class="account-icon" aria-hidden="true">👤 {user ? user.name : 'User'}</span>
                 {:else}
                     Sign In
                 {/if}
@@ -190,15 +204,15 @@
         <a href="/aerospace" role="menuitem">Aerospace</a>
         <a href="/exploration" role="menuitem">Exploration</a>
         <a href="/stem" role="menuitem">STEM</a>
-        
+
         <button 
             class="mobile-topics-toggle" 
             on:click={toggleMobileTopics}
             on:keydown={(e) => e.key === 'Enter' && toggleMobileTopics(e)}
             aria-expanded={isTopicsVisible}>
-            All Topics {isTopicsVisible ? '▼' : '▶'}
+            All Articles {isTopicsVisible ? '▼' : '▶'}
         </button>
-        
+
         {#if isTopicsVisible}
             <div class="mobile-topics" role="menu">
                 <button role="menuitem" on:click={() => handleTopicSelect('all')}>All Topics</button>
@@ -207,7 +221,7 @@
                 {/each}
             </div>
         {/if}
-        
+
         <hr />
         <div class="account-section">
             {#if isLoggedIn}
@@ -232,16 +246,19 @@
 {/if}
 </header>
 
-{#if showBetaPopup}
+{#if showPopup}
     <button 
-        id="beta-popup" 
-        class="beta-popup" 
-        on:click={() => (showBetaPopup = false)}
-        on:keydown={(e) => e.key === 'Enter' && (showBetaPopup = false)}
+        id="popup" 
+        class="popup" 
+        on:click={() => (showPopup = false)}
+        on:keydown={(e) => e.key === 'Enter' && (showPopup = false)}
         role="alert">
-        Cosmicnxws.com is in Beta and may be buggy <span class="close-popup" aria-hidden="true">×</span>
+        Cosmicnxws.com Accounts are coming soon 🚀🚀🚀 <span class="close-popup" aria-hidden="true">×</span>
     </button>
 {/if}
+
+
+
 
 <style>
     * {
@@ -440,7 +457,7 @@
         }
     }
 
-    .beta-popup {
+    .popup {
         position: fixed;
         bottom: 20px;
         right: 20px;
@@ -458,13 +475,13 @@
         cursor: pointer;
     }
 
-    .beta-popup .close-popup {
+    .popup .close-popup {
         font-size: 1.2rem;
         cursor: pointer;
         color: #9b59b6;
     }
 
-    .beta-popup:hover .close-popup {
+    .popup:hover .close-popup {
         color: #e74c3c;
     }
 </style>

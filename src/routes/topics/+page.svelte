@@ -29,7 +29,7 @@
     
     <div class="content">
         <div class="rocket">🚀</div>
-        <h1>Page Under Maintenance</h1>
+        <h1>Page comming soon</h1>
         <p>This page is temporarily unavailable & will be ready soon.</p>
         <div class="progress-bar">
             <div class="progress"></div>
