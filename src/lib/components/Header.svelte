@@ -253,7 +253,7 @@
         on:click={() => (showPopup = false)}
         on:keydown={(e) => e.key === 'Enter' && (showPopup = false)}
         role="alert">
-        Cosmicnxws.com Accounts are coming soon 🚀🚀🚀 <span class="close-popup" aria-hidden="true">×</span>
+        CosmicNxws is rebranding to Proxima Report. This site is being deprecated <span class="close-popup" aria-hidden="true">×</span>
     </button>
 {/if}
 

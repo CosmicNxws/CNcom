@@ -36,9 +36,9 @@
   .callout {
     margin-top: 1rem;
     font-style: italic;
-    color: #a749ff;
+    color: #ff1414;
     font-size: 1rem;
-    border-left: 4px solid #a749ff;
+    border-left: 4px solid #ff0e0e;
     padding-left: 10px;
   }
 
@@ -158,7 +158,9 @@
         We’re determined to ignite curiosity and empower learning for everyone.
       </p>
       <p class="callout">
-        “AD ASTRA PER SCIENTIA” – To the Stars Through Knowledge.
+        
+Important Update: CosmicNxws is rebranding to Proxima Report. This site is being deprecated and will shut down on April 16, 2025 at 11pm CST.  <a href="https://proximareport.com" class="migration-link">Visit our new Site</a> 
+to continue getting updates.
       </p>
     </div>
     <div class="about-image">

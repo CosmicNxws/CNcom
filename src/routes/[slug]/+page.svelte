@@ -1,8 +1,11 @@
 <script>
     import Header from '$lib/components/Header.svelte';
     import Footer from '$lib/components/Footer.svelte';
+    import { fade } from 'svelte/transition';
+    import { onMount } from 'svelte';
 
     export let data;
+    let showDeprecationNotice = true;
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -14,14 +17,43 @@
             minute: '2-digit'
         });
     }
+
+    function dismissNotice() {
+        showDeprecationNotice = false;
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('deprecationNoticeDismissed', 'true');
+        }
+    }
+
+    onMount(() => {
+        if (typeof window !== 'undefined' && localStorage.getItem('deprecationNoticeDismissed')) {
+            showDeprecationNotice = false;
+        }
+    });
 </script>
 
 <svelte:head>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </svelte:head>
 
-
 <Header />
+
+{#if showDeprecationNotice}
+<div transition:fade class="deprecation-notice">
+    <div class="notice-content">
+        <span class="notice-icon">⚠️</span>
+        <div>
+            <strong>Important Update:</strong> CosmicNxws is rebranding to <strong>Proxima Report</strong>. 
+            This site is being deprecated and will shut down on April 16, 2025 at 11pm CST. 
+            <a href="https://proximareport.com" class="migration-link">Visit our new Site</a> 
+            to continue getting updates.
+        </div>
+    </div>
+    <button on:click={dismissNotice} class="close-button" aria-label="Dismiss notice">
+        &times;
+    </button>
+</div>
+{/if}
 
 <main>
     <meta name="google-adsense-account" content="ca-pub-1753330877601837">
@@ -85,6 +117,55 @@
         min-height: 100vh;
         padding: 2rem 0;
     }
+
+
+
+    .deprecation-notice {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        color: white;
+        padding: 0.8rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-left: 4px solid #f05454;
+    }
+
+    .notice-content {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    .notice-icon {
+        font-size: 1.2rem;
+    }
+
+    .migration-link {
+        color: #00f5d4;
+        text-decoration: underline;
+        font-weight: bold;
+        margin-left: 0.3rem;
+    }
+
+    .migration-link:hover {
+        text-decoration: none;
+    }
+
+    .close-button {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0 0.5rem;
+        line-height: 1;
+    }
+
 
     .post {
         max-width: 900px;
