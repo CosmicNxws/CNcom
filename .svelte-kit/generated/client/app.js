@@ -24,7 +24,7 @@ export const server_loads = [];
 
 export const dictionary = {
 		"/": [~2],
-		"/aerospace": [~3],
+		"/Aerospace": [~3],
 		"/exploration": [~4],
 		"/launches": [~5],
 		"/newsletter": [~6],

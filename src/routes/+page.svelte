@@ -2,6 +2,8 @@
     import BlogPost from '$lib/components/BlogPost.svelte';
     import Header from '$lib/components/Header.svelte';
     import Footer from '$lib/components/Footer.svelte';
+    import { fade } from 'svelte/transition';
+    import { onMount } from 'svelte';
 
     /** @type {import('./$types').PageData} */
     export let data;
@@ -9,6 +11,7 @@
     const POSTS_PER_LOAD = 20;
     let visiblePosts = POSTS_PER_LOAD;
     let selectedTopic = 'all';
+    let showDeprecationNotice = true;
 
     $: filteredPosts = selectedTopic === 'all' 
         ? data.posts 
@@ -17,12 +20,44 @@
     function loadMore() {
         visiblePosts += POSTS_PER_LOAD;
     }
+
+    function dismissNotice() {
+        showDeprecationNotice = false;
+        // Optional: Store dismissal in localStorage
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('deprecationNoticeDismissed', 'true');
+        }
+    }
+
+    onMount(() => {
+        // Check if user previously dismissed the notice
+        if (typeof window !== 'undefined' && localStorage.getItem('deprecationNoticeDismissed')) {
+            showDeprecationNotice = false;
+        }
+    });
 </script>
 
 <Header on:topicSelect={(e) => {
     selectedTopic = e.detail;
     visiblePosts = POSTS_PER_LOAD;
 }} />
+
+{#if showDeprecationNotice}
+<div transition:fade class="deprecation-notice">
+    <div class="notice-content">
+        <span class="notice-icon">⚠️</span>
+        <div>
+            <strong>Important Update:</strong> CosmicNxws is rebranding to <strong>Proxima Report</strong>. 
+            This site is being deprecated and will shut down on April 16, 2025 at 11pm CST. 
+            <a href="https://proximareport.com" class="migration-link">Visit our new Site</a> 
+            to continue getting updates.
+        </div>
+    </div>
+    <button on:click={dismissNotice} class="close-button" aria-label="Dismiss notice">
+        &times;
+    </button>
+</div>
+{/if}
 
 <main>
     <meta name="google-adsense-account" content="ca-pub-1753330877601837">
@@ -38,9 +73,60 @@
 
 <Footer />
 
-
-
 <style>
+    .deprecation-notice {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        border-left: 4px solid #f05454; /* Warning red */
+        color: white;
+        padding: 0.8rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .notice-content {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    .notice-icon {
+        font-size: 1.4rem;
+        animation: pulse 2s infinite;
+    }
+
+    .migration-link {
+        color: #00f5d4; /* Cyber teal */
+        text-decoration: underline;
+        font-weight: bold;
+        margin: 0 0.3rem;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .close-button {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0 0.5rem;
+        line-height: 1;
+    }
+
+    .close-button:hover {
+        opacity: 0.8;
+    }
+
     .posts-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
